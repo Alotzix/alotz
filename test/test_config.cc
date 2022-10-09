@@ -4,7 +4,7 @@
 
 alotz::ConfigVar<int>::ptr g_int_value_config = alotz::Config::Lookup("system.port", (int)8080, "system port");
 
-alotz::ConfigVar<float>::ptr g_float_value_config = alotz::config::Lookup("system.value", (float)10.2f, "system value");
+alotz::ConfigVar<float>::ptr g_float_value_config = alotz::Config::Lookup("system.value", (float)10.2f, "system value");
 
 void test_config() {
     ALOTZ_LOG_INFO(ALOTZ_LOG_ROOT()) << "before:" << g_int_value_config->getValue();

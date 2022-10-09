@@ -1,6 +1,6 @@
 #include <iostream>
-#include "log.h"
-#include "util.h"
+#include "src/log.h"
+#include "src/util.h"
 
 int main(int argc, char** argv) {
 
