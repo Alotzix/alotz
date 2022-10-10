@@ -213,6 +213,8 @@ void test_log() {
     std::cout << "=============" << std::endl;
     std::cout << root << std::endl;
     ALOTZ_LOG_INFO(system_log) << "hello system" << std::endl;
+
+    system_log->setFormatter("%d - %m%n");
 }
 
 int main(int argc, char** argv) {
