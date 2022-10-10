@@ -1,0 +1,66 @@
+logs:
+  - name: root
+    level: info
+    formatter: "%d%T%m%n"
+    appender:
+      - type: FileLogAppender
+        file: log.txt
+      - type: StdoutLogAppender
+  - name: system
+    level: debug
+    formatter: "%d%T%m%n"
+    appender:
+      - type: FileLogAppender
+        file: log.txt
+      - type: StdoutLogAppender
+
+system:
+  port: 9900
+  value: 15
+  int_vec:
+    - 10
+    - 30
+  int_list: [ 20, 40, 50 ]
+  int_set: [ 30, 20, 60, 20 ]
+  int_uset: [ 30, 20, 60, 20 ]
+  str_int_map:
+    k: 30
+    k2: 20
+    k3: 10
+  str_int_umap:
+    k: 130
+    k2: 120
+    k3: 110
+  str_int_vec_umap:
+    x: [ 10, 20, 30 ]
+    k: [ 30, 20, 10 ]
+
+class:
+  person:
+    name: zhao
+    age: 23
+    sex: false
+  map:
+    zhao1:
+      name: zhao1
+      age: 18
+      sex: false
+    zhao2:
+      name: zhao2
+      age: 30
+      sex: true
+  vec_map:
+    k1:
+      - name: m1
+        age: 33
+        sex: true
+      - name: m2
+        age: 40
+        sex: true
+    k2:
+      - name: k1
+        age: 33
+        sex: true
+      - name: k2
+        age: 40
+        sex: true  
