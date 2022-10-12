@@ -225,9 +225,9 @@ int main(int argc, char** argv) {
 
     alotz::Config::visit([](alotz::ConfigVarBase::ptr var) {
         ALOTZ_LOG_INFO(ALOTZ_LOG_ROOT()) << "name= " << var->getName()
-            << "description= " << var.getDescription()
-            << "typename= " << var.getTypeName()
-            << "value= " << var.getValue();
+            << "description= " << var->getDescription()
+            << "typename= " << var->getTypeName()
+            << "value= " << var->toString();
     });
     return 0;
 }

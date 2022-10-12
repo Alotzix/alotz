@@ -17,7 +17,7 @@ Scheduler::Scheduler(size_t threads, bool use_caller, const std::string& name)
         alotz::Fiber::GetThis();
         --threads;
 
-        ALOTZ_ASSERT(GetThis() == nullptr);
+        ALOTZ_ASSERT((GetThis() == nullptr));
         t_scheduler = this;
 
         m_rootFiber.reset(new Fiber(std::bind(&Scheduler::run, this), 0, true));
@@ -79,9 +79,9 @@ void Scheduler::stop() {
     }
 
     if (m_rootThread != -1) {
-        ALOTZ_ASSERT(GetThis() == this);
+        ALOTZ_ASSERT((GetThis() == this));
     } else {
-        ALOTZ_ASSERT(GetThis() != this);
+        ALOTZ_ASSERT((GetThis() != this));
     }
 
     m_stopping = true;
@@ -167,7 +167,7 @@ void Scheduler::run() {
             if (cb_fiber->getState() == Fiber::EXCEPT || cb_fiber->getState() == Fiber::TERM) {
                 cb_fiber->reset(nullptr);
             } else {
-                cb_fiber->m_state = Fiber::Hold;
+                cb_fiber->m_state = Fiber::HOLD;
                 cb_fiber.reset();
             }
         } else {
@@ -181,7 +181,7 @@ void Scheduler::run() {
             --m_activeThreadCount;
             if (idle_fiber->getState() != Fiber::TERM && 
                     idle_fiber->getState() != Fiber::EXCEPT) {
-                idle_fiber->m_state = Fiber::Hold;
+                idle_fiber->m_state = Fiber::HOLD;
             }
         }
     }
@@ -191,7 +191,7 @@ void Scheduler::tickle() {
     ALOTZ_LOG_INFO(g_logger) << "tickle";
 }
 
-void Scheduler::stopping() {
+bool Scheduler::stopping() {
     MutexType::Lock lock(m_mutex);
     return m_autostop && m_stopping && m_fibers.empty() && m_activeThreadCount == 0;
 }
