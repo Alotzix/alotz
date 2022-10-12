@@ -134,7 +134,7 @@ void Fiber::swapIn() {
 }
 
 void Fiber::swapOut() {
-    SetThis(Scheduler::GetMainFiber);
+    SetThis(Scheduler::GetMainFiber());
 
     if (swapcontext(&m_ctx, &Scheduler::GetMainFiber()->m_ctx)) {
         ALOTZ_ASSERT2(false, "swapcontext");
@@ -182,15 +182,15 @@ void Fiber::MainFunc() {
         cur->m_state = EXCEPT;
         ALOTZ_LOG_ERROR(g_logger) << "Fiber except: " << e.what()
             << " fiber_id= " << cur->getId()
-            << std::endl;
+            << std::endl
             << alotz::BacktraceToString();
     }
 
     auto raw_ptr = cur.get();
     cur.reset();
-    raw_ptr.swapOut();
+    raw_ptr->swapOut();
 
-    ALOTZ_ASSERT2(false, "never reach fiber_id=" + std::to_string(raw_ptr.getId()));
+    ALOTZ_ASSERT2(false, "never reach fiber_id=" + std::to_string(raw_ptr->getId()));
 }
 
 void Fiber::CallerMainFunc() {
@@ -204,13 +204,13 @@ void Fiber::CallerMainFunc() {
         cur->m_state = EXCEPT;
         ALOTZ_LOG_ERROR(g_logger) << "Fiber Except: " << ex.what()
             << "fiber_id= " << cur->getId()
-            << std::endl;
+            << std::endl
             << alotz::BacktraceToString();
     } catch(...) {
         cur->m_state = EXCEPT;
         ALOTZ_LOG_ERROR(g_logger) << "Fiber Except: "
             << "fiber_id= " << cur->getId()
-            << std::endl;
+            << std::endl
             << alotz::BacktraceToString();
     }
 

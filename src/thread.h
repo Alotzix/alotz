@@ -28,7 +28,7 @@ private:
 };
 
 template <typename T>
-class ScopedLockImpl {
+struct ScopedLockImpl {
 public:
     ScopedLockImpl(T& mutex) 
         : m_mutex(mutex) {
@@ -59,7 +59,7 @@ private:
 };
 
 template <typename T>
-class ReadScopedLockImpl {
+struct ReadScopedLockImpl {
 public:
     ReadScopedLockImpl(T& mutex) 
         : m_mutex(mutex) {
@@ -91,7 +91,7 @@ private:
 };
 
 template <typename T>
-class WriteScopedLockImpl {
+struct WriteScopedLockImpl {
 public:
     WriteScopedLockImpl(T& mutex) 
         : m_mutex(mutex) {

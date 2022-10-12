@@ -26,7 +26,7 @@ private:
     Fiber();
 
 public:
-    Fiber(strd::function<void()> cb, size_t stacksize = 0, bool use_caller = false);
+    Fiber(std::function<void()> cb, size_t stacksize = 0, bool use_caller = false);
     ~Fiber();
 
     void reset(std::function<void()> cb);
