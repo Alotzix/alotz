@@ -124,7 +124,7 @@ private:
 
 class Mutex {
 public:
-    typedef ScopedLockImpl<Mutex> lock;
+    typedef ScopedLockImpl<Mutex> Lock;
     Mutex() {
         pthread_mutex_init(&m_mutex, nullptr);
     }
@@ -144,15 +144,6 @@ public:
 private:
     pthread_mutex_t m_mutex; 
 
-};
-
-class NullMutex {
-public:
-    typedef ScopedLockImpl<Mutex> Lock;
-    NullMutex() {}
-    ~NullMutex() {}
-    void lock() {}
-    void unlock() {}
 };
 
 class RWMutex {
@@ -235,7 +226,7 @@ public:
         std::atomic_flag_clear_explicit(&m_mutex, std::memory_order_release);
     }
 private:
-    volatile std::atomic_flag = m_mutex;
+    volatile std::atomic_flag m_mutex;
 };
 
 class Thread {

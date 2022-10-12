@@ -277,12 +277,14 @@ public:
     }
 
     void setValue(const T& v) { 
-        RWMutexType::ReadLock lock(m_mutex);
-        if (v == m_val) {
-            return;
-        }
-        for (auto& i : m_cbs) {
-            i.second(m_val, v);
+        {
+            RWMutexType::ReadLock lock(m_mutex);
+            if (v == m_val) {
+                return;
+            }
+            for (auto& i : m_cbs) {
+                i.second(m_val, v);
+            }
         }
         RWMutexType::WriteLock lock(m_mutex);
         m_val = v;
