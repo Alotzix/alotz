@@ -186,7 +186,7 @@ void test_class() {
         ALOTZ_LOG_INFO(ALOTZ_LOG_ROOT()) <<  prefix << ": size=" << m.size(); \
     }
 
-    g_person->addListener(10, [](const Person& old_value, const Person& new_value){
+    g_person->addListener([](const Person& old_value, const Person& new_value){
         ALOTZ_LOG_INFO(ALOTZ_LOG_ROOT()) << "old_value=" << old_value.toString()
                 << " new_value=" << new_value.toString();
     });
@@ -222,5 +222,12 @@ int main(int argc, char** argv) {
     //test_config();
     //test_class();
     test_log();
+
+    alotz::Config::visit([](alotz::ConfigVarBase::ptr var) {
+        ALOTZ_LOG_INFO(ALOTZ_LOG_ROOT()) << "name= " << var->getName()
+            << "description= " << var.getDescription()
+            << "typename= " << var.getTypeName()
+            << "value= " << var.getValue();
+    });
     return 0;
 }

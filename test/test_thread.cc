@@ -37,11 +37,11 @@ int main(int argc, char** argv) {
     alotz::Config::LoadFromYaml(root);
 
     std::vector<alotz::Thread::ptr> thrs;
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 1; ++i) {
         alotz::Thread::ptr thr(new alotz::Thread(&func2, "name_" + std::to_string(i * 2)));
-        alotz::Thread::ptr thr2(new alotz::Thread(&func3, "name_" + std::to_string(i * 2 + 1)));
+        // alotz::Thread::ptr thr2(new alotz::Thread(&func3, "name_" + std::to_string(i * 2 + 1)));
         thrs.push_back(thr);
-        thrs.push_back(thr2);
+        // thrs.push_back(thr2);
     }
 
     for (size_t i = 0; i < thrs.size(); ++i) {
