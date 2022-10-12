@@ -124,7 +124,8 @@ private:
 
 class Mutex {
 public:
-    typedef ScopedLockImpl<Mutex> Lock;
+    using Lock = ScopedLockImpl<Mutex>;
+
     Mutex() {
         pthread_mutex_init(&m_mutex, nullptr);
     }
@@ -148,8 +149,8 @@ private:
 
 class RWMutex {
 public:
-    typedef ReadScopedLockImpl<RWMutex> ReadLock;
-    typedef WriteScopedLockImpl<RWMutex> WriteLock;
+    using ReadLock = ReadScopedLockImpl<RWMutex>;
+    using WriteLock = WriteScopedLockImpl<RWMutex>;
 
     RWMutex() {
         pthread_rwlock_init(&m_lock, nullptr);
@@ -178,8 +179,9 @@ private:
 
 class NullMutex {
 public:
-    typedef ReadScopedLockImpl<NullMutex> ReadLock;
-    typedef WriteScopedLockImpl<NullMutex> WriteLock;
+    using ReadLock = ReadScopedLockImpl<NullMutex>;
+    using WriteLock = WriteScopedLockImpl<NullMutex>;
+
     NullMutex() {}
     ~NullMutex() {}
 
@@ -190,7 +192,8 @@ public:
 
 class SpinLock {
 public:
-    typedef ScopedLockImpl<SpinLock> Lock;
+    using Lock = ScopedLockImpl<SpinLock>;
+
     SpinLock() {
         pthread_spin_init(&m_mutex, 0);
     }
@@ -212,7 +215,8 @@ private:
 
 class CASLock {
 public:
-    typedef ScopedLockImpl<CASLock> Lock;
+    using Lock = ScopedLockImpl<CASLock>;
+    
     CASLock() {
         m_mutex.clear();
     }

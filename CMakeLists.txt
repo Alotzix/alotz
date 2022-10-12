@@ -36,10 +36,10 @@ set(LIBS
 message("***", ${LIBS})
 
 
-add_executable(test test/test.cc)
-add_dependencies(test alotz)
-force_redefine_file_macro_for_sources(test) #__FILE__
-target_link_libraries(test ${LIBS})
+add_executable(test_util test/test_util.cc)
+add_dependencies(test_util alotz)
+force_redefine_file_macro_for_sources(test_util) #__FILE__
+target_link_libraries(test_util ${LIBS})
 
 add_executable(test_config test/test_config.cc)
 add_dependencies(test_config alotz)

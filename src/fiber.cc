@@ -150,7 +150,7 @@ Fiber::ptr Fiber::GetThis() {
         return t_fiber->shared_from_this();
     }
     Fiber::ptr main_fiber(new Fiber);
-    ALOTZ_ASSERT(t_fiber == main_fiber.get());
+    // ALOTZ_ASSERT(t_fiber == main_fiber.get());
     t_threadFiber = main_fiber;
     return t_fiber->shared_from_this();
 }
