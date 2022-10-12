@@ -17,6 +17,8 @@ set(LIB_SRC
     src/util.cc
     src/config.cc
     src/thread.cc
+    src/fiber.cc
+    src/scheduler.cc
 )
 
 add_library(alotz SHARED ${LIB_SRC})
@@ -48,6 +50,16 @@ add_executable(test_thread test/test_thread.cc)
 add_dependencies(test_thread alotz)
 force_redefine_file_macro_for_sources(test_thread) #__FILE__
 target_link_libraries(test_thread ${LIBS})
+
+add_executable(test_fiber test/test_fiber.cc)
+add_dependencies(test_fiber alotz)
+force_redefine_file_macro_for_sources(test_fiber) #__FILE__
+target_link_libraries(test_fiber ${LIBS})
+
+add_executable(test_scheduler test/test_scheduler.cc)
+add_dependencies(test_scheduler alotz)
+force_redefine_file_macro_for_sources(test_scheduler) #__FILE__
+target_link_libraries(test_scheduler ${LIBS})
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR/bin})
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR/lib})

@@ -51,7 +51,7 @@ Fiber::Fiber() {
     ALOTZ_LOG_DEBUG(g_logger) << "Fiber::Fiber";
 }
 
-Fiber::Fiber(std::function<void()> cb, size_t stacksize) 
+Fiber::Fiber(std::function<void()> cb, size_t stacksize, bool use_caller) 
     : m_id(++s_fiber_id) 
     , m_cb(cb) {
     ++s_fiber_count;
@@ -65,7 +65,11 @@ Fiber::Fiber(std::function<void()> cb, size_t stacksize)
     m_ctx.uc_stack.ss_sp = m_stack;
     m_ctx.uc_stack.ss_size = m_stacksize;
 
-    makecontext(&m_ctx, &Fiber::MainFunc, 0);
+    if (!use_caller) {
+        makecontext(&m_ctx, &Fiber::MainFunc, 0);
+    } else {
+        makecontext(&m_ctx, &Fiber::CallerMainFunc, 0);
+    }
 
     ALOTZ_LOG_DEBUG(g_logger) << "Fiber::Fiber id=" << m_id;
 }
@@ -102,6 +106,22 @@ void Fiber::reset(std::function<void()> cb) {
 
     makecontext(&m_ctx, &Fiber::MainFunc, 0);
     m_state = INIT;
+}
+
+void Fiber::call() {
+    SetThis(this);
+    m_state = EXEC;
+    ALOTZ_LOG_ERROR(g_logger) << getId();
+    if (swapcontext(&t_threadFiber->m_ctx, &m_ctx)) {
+        ALOTZ_ASSERT2(false, "swapcontext");
+    }
+}
+
+void Fiber::back() {
+    SetThis(this);
+    if (swapcontext(&m_ctx, &t_threadFiber->m_ctx)) {
+        ALOTZ_ASSERT2(false, "swapcontext");
+    }
 }
 
 void Fiber::swapIn() {
@@ -171,6 +191,33 @@ void Fiber::MainFunc() {
     raw_ptr.swapOut();
 
     ALOTZ_ASSERT2(false, "never reach fiber_id=" + std::to_string(raw_ptr.getId()));
+}
+
+void Fiber::CallerMainFunc() {
+    Fiber::ptr cur = GetThis();
+    ALOTZ_ASSERT(cur);
+    try {
+        cur->m_cb();
+        cur->m_cb = nullptr;
+        cur->m_state = TERM; 
+    } catch (std::exception& ex) {
+        cur->m_state = EXCEPT;
+        ALOTZ_LOG_ERROR(g_logger) << "Fiber Except: " << ex.what()
+            << "fiber_id= " << cur->getId()
+            << std::endl;
+            << alotz::BacktraceToString();
+    } catch(...) {
+        cur->m_state = EXCEPT;
+        ALOTZ_LOG_ERROR(g_logger) << "Fiber Except: "
+            << "fiber_id= " << cur->getId()
+            << std::endl;
+            << alotz::BacktraceToString();
+    }
+
+    auto raw_ptr = cur.get();
+    cur.reset();
+    raw_ptr->back();
+    ALOTZ_ASSERT2(false, "never reach fiber id= " + std::to_string(raw_ptr->getId()));
 }
 
 }
