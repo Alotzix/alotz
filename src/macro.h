@@ -6,7 +6,7 @@
 #include "util.h"
 
 #define ALOTZ_ASSERT(x) \
-    if (!x) { \
+    if (!(x)) { \
         ALOTZ_LOG_ERROR(ALOTZ_LOG_ROOT()) << "ASSERTION: " #x \
             << "\nbacktrace: \n" \
             << alotz::BacktraceToString(100, 2, "    "); \
@@ -14,7 +14,7 @@
     }
 
 #define ALOTZ_ASSERT2(x, w) \
-    if (!x) { \
+    if (!(x)) { \
         ALOTZ_LOG_ERROR(ALOTZ_LOG_ROOT()) << "ASSERTION: " #x \
             << "\n" << w \
             << "\nBacktrace: \n" \
