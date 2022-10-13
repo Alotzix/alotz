@@ -20,6 +20,7 @@ set(LIB_SRC
     src/fiber.cc
     src/scheduler.cc
     src/iomanager.cc
+    src/timer.cc
 )
 
 add_library(alotz SHARED ${LIB_SRC})
