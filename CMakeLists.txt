@@ -21,6 +21,9 @@ set(LIB_SRC
     src/scheduler.cc
     src/iomanager.cc
     src/timer.cc
+    src/address.cc
+    src/fd_manager.cc
+    src/hook.cc
 )
 
 add_library(alotz SHARED ${LIB_SRC})
@@ -28,9 +31,14 @@ force_redefine_file_macro_for_sources(alotz) #__FILE__
 
 find_library(YAMLCPP yaml-cpp)
 find_library(PTHREAD pthread)
+#set(LIBS ${LIBS} alotz)
+#set(LIBS ${LIBS} dl)
+#set(LIBS ${LIBS} ${YAMLCPP})
+#set(LIBS ${LIBS} ${PTHREAD})
 
 set(LIBS
     alotz
+    dl
     yaml-cpp
     pthread
 )
@@ -67,6 +75,16 @@ add_executable(test_iomanager test/test_iomanager.cc)
 add_dependencies(test_iomanager alotz)
 force_redefine_file_macro_for_sources(test_iomanager) #__FILE__
 target_link_libraries(test_iomanager ${LIBS})
+
+add_executable(test_address test/test_address.cc)
+add_dependencies(test_address alotz)
+force_redefine_file_macro_for_sources(test_address) #__FILE__
+target_link_libraries(test_address ${LIBS})
+
+add_executable(test_hook test/test_hook.cc)
+add_dependencies(test_hook alotz)
+force_redefine_file_macro_for_sources(test_hook) #__FILE__
+target_link_libraries(test_hook ${LIBS})
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR/bin})
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR/lib})

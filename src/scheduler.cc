@@ -1,6 +1,7 @@
 #include "scheduler.h"
 #include "log.h"
 #include "macro.h"
+#include "hook.h"
 
 namespace alotz {
 
@@ -116,6 +117,7 @@ void Scheduler::setThis() {
 
 void Scheduler::run() {
     ALOTZ_LOG_INFO(g_logger) << "run";
+    set_hook_enable(true);
     setThis();
     if (alotz::GetThreadId() != m_rootThread) {
         t_fiber = Fiber::GetThis().get();
