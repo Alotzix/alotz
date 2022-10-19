@@ -45,6 +45,6 @@ void test_socket() {
 
 int main(int argc, char** argv) {
     alotz::IOManager iom;
-    iom.schedule(&test_socket);
+    iom.schedule(&test_socket());
     return 0;
 }
