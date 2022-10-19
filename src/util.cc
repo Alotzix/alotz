@@ -6,7 +6,7 @@
 
 namespace alotz {
 
-alotz::Logger::ptr g_logger = ALOTZ_LOG_NAME("system");
+static alotz::Logger::ptr g_logger = ALOTZ_LOG_NAME("system");
 
 pid_t GetThreadId() {
     return syscall(SYS_gettid);

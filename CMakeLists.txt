@@ -24,6 +24,8 @@ set(LIB_SRC
     src/address.cc
     src/fd_manager.cc
     src/hook.cc
+    src/bytearray.cc
+    src/socket.cc
 )
 
 add_library(alotz SHARED ${LIB_SRC})
@@ -85,6 +87,16 @@ add_executable(test_hook test/test_hook.cc)
 add_dependencies(test_hook alotz)
 force_redefine_file_macro_for_sources(test_hook) #__FILE__
 target_link_libraries(test_hook ${LIBS})
+
+add_executable(test_bytearray test/test_bytearray.cc)
+add_dependencies(test_bytearray alotz)
+force_redefine_file_macro_for_sources(test_bytearray) #__FILE__
+target_link_libraries(test_bytearray ${LIBS})
+
+add_executable(test_socket test/test_socket.cc)
+add_dependencies(test_socket alotz)
+force_redefine_file_macro_for_sources(test_socket) #__FILE__
+target_link_libraries(test_socket ${LIBS})
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR/bin})
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR/lib})

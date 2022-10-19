@@ -7,7 +7,7 @@ void test() {
     std::vector<alotz::Address::ptr> addrs;
 
     ALOTZ_LOG_INFO(g_logger) << "begin";
-    bool v = alotz::Address::Lookup(addrs, "www.sylar.top");
+    bool v = alotz::Address::Lookup(addrs, "www.baidu.com", AF_INET);
     ALOTZ_LOG_INFO(g_logger) << "end";
     if (!v) {
         ALOTZ_LOG_ERROR(g_logger) << "lookup fail";
