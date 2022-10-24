@@ -26,7 +26,13 @@ set(LIB_SRC
     src/hook.cc
     src/bytearray.cc
     src/socket.cc
+    src/http/http.cc
+    src/http/http_parser.cc
+    src/tcp_server.cc
 )
+
+ragelmaker(src/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/http)
+ragelmaker(src/http/httpclient_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/http)
 
 add_library(alotz SHARED ${LIB_SRC})
 force_redefine_file_macro_for_sources(alotz) #__FILE__
@@ -45,58 +51,20 @@ set(LIBS
     pthread
 )
 
-message("***", ${LIBS})
-
-
-add_executable(test_util test/test_util.cc)
-add_dependencies(test_util alotz)
-force_redefine_file_macro_for_sources(test_util) #__FILE__
-target_link_libraries(test_util ${LIBS})
-
-add_executable(test_config test/test_config.cc)
-add_dependencies(test_config alotz)
-force_redefine_file_macro_for_sources(test_config) #__FILE__
-target_link_libraries(test_config ${LIBS})
-
-add_executable(test_thread test/test_thread.cc)
-add_dependencies(test_thread alotz)
-force_redefine_file_macro_for_sources(test_thread) #__FILE__
-target_link_libraries(test_thread ${LIBS})
-
-add_executable(test_fiber test/test_fiber.cc)
-add_dependencies(test_fiber alotz)
-force_redefine_file_macro_for_sources(test_fiber) #__FILE__
-target_link_libraries(test_fiber ${LIBS})
-
-add_executable(test_scheduler test/test_scheduler.cc)
-add_dependencies(test_scheduler alotz)
-force_redefine_file_macro_for_sources(test_scheduler) #__FILE__
-target_link_libraries(test_scheduler ${LIBS})
-
-add_executable(test_iomanager test/test_iomanager.cc)
-add_dependencies(test_iomanager alotz)
-force_redefine_file_macro_for_sources(test_iomanager) #__FILE__
-target_link_libraries(test_iomanager ${LIBS})
-
-add_executable(test_address test/test_address.cc)
-add_dependencies(test_address alotz)
-force_redefine_file_macro_for_sources(test_address) #__FILE__
-target_link_libraries(test_address ${LIBS})
-
-add_executable(test_hook test/test_hook.cc)
-add_dependencies(test_hook alotz)
-force_redefine_file_macro_for_sources(test_hook) #__FILE__
-target_link_libraries(test_hook ${LIBS})
-
-add_executable(test_bytearray test/test_bytearray.cc)
-add_dependencies(test_bytearray alotz)
-force_redefine_file_macro_for_sources(test_bytearray) #__FILE__
-target_link_libraries(test_bytearray ${LIBS})
-
-add_executable(test_socket test/test_socket.cc)
-add_dependencies(test_socket alotz)
-force_redefine_file_macro_for_sources(test_socket) #__FILE__
-target_link_libraries(test_socket ${LIBS})
+alotz_add_executable(test_config "test/test_config.cc" alotz "${LIBS}")
+alotz_add_executable(test_thread "test/test_thread.cc" alotz "${LIBS}")
+alotz_add_executable(test_util "test/test_util.cc" alotz "${LIBS}")
+alotz_add_executable(test_fiber "test/test_fiber.cc" alotz "${LIBS}")
+alotz_add_executable(test_scheduler "test/test_scheduler.cc" alotz "${LIBS}")
+alotz_add_executable(test_iomanager "test/test_iomanager.cc" alotz "${LIBS}")
+alotz_add_executable(test_hook "test/test_hook.cc" alotz "${LIBS}")
+alotz_add_executable(test_address "test/test_address.cc" alotz "${LIBS}")
+alotz_add_executable(test_socket "test/test_socket.cc" alotz "${LIBS}")
+alotz_add_executable(test_bytearray "test/test_bytearray.cc" alotz "${LIBS}")
+alotz_add_executable(test_http "test/test_http.cc" alotz "${LIBS}")
+alotz_add_executable(test_http_parser "test/test_http_parser.cc" alotz "${LIBS}")
+alotz_add_executable(test_tcp_server "test/test_tcp_server.cc" alotz "${LIBS}")
+alotz_add_executable(echo_server "examples/echo_server.cc" alotz "${LIBS}")
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR/bin})
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR/lib})
