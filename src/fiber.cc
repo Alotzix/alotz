@@ -174,17 +174,17 @@ uint64_t Fiber::TotalFibers() {
 void Fiber::MainFunc() {
     Fiber::ptr cur = GetThis();
     ALOTZ_ASSERT(cur);
-    try {
+    // try {
         cur->m_cb();
         cur->m_cb = nullptr;
         cur->m_state = TERM;
-    } catch (std::exception& e) {
-        cur->m_state = EXCEPT;
-        ALOTZ_LOG_ERROR(g_logger) << "Fiber except: " << e.what()
-            << " fiber_id= " << cur->getId()
-            << std::endl
-            << alotz::BacktraceToString();
-    }
+    // } catch (std::exception& e) {
+    //     cur->m_state = EXCEPT;
+    //     ALOTZ_LOG_ERROR(g_logger) << "Fiber except: " << e.what()
+    //         << " fiber_id= " << cur->getId()
+    //         << std::endl
+    //         << alotz::BacktraceToString();
+    // }
 
     auto raw_ptr = cur.get();
     cur.reset();

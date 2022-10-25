@@ -13,22 +13,28 @@ link_directories(/usr/lib64)
 link_directories(/usr/local/lib64)
 
 set(LIB_SRC
-    src/log.cc
-    src/util.cc
-    src/config.cc
-    src/thread.cc
-    src/fiber.cc
-    src/scheduler.cc
-    src/iomanager.cc
-    src/timer.cc
     src/address.cc
-    src/fd_manager.cc
-    src/hook.cc
     src/bytearray.cc
-    src/socket.cc
+    src/config.cc
+    src/fd_manager.cc
+    src/fiber.cc
     src/http/http.cc
+    src/http/http_connection.cc
     src/http/http_parser.cc
+    src/http/http_session.cc
+    src/http/http_server.cc
+    src/http/servlet.cc
+    src/hook.cc
+    src/iomanager.cc
+    src/log.cc
+    src/scheduler.cc
+    src/socket.cc
+    src/socket_stream.cc
+    src/stream.cc
     src/tcp_server.cc
+    src/timer.cc
+    src/thread.cc
+    src/util.cc
 )
 
 ragelmaker(src/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/http)
@@ -65,6 +71,8 @@ alotz_add_executable(test_http "test/test_http.cc" alotz "${LIBS}")
 alotz_add_executable(test_http_parser "test/test_http_parser.cc" alotz "${LIBS}")
 alotz_add_executable(test_tcp_server "test/test_tcp_server.cc" alotz "${LIBS}")
 alotz_add_executable(echo_server "examples/echo_server.cc" alotz "${LIBS}")
+alotz_add_executable(test_http_server "test/test_http_server.cc" alotz "${LIBS}")
+alotz_add_executable(test_http_connection "test/test_http_connection.cc" alotz "${LIBS}")
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR/bin})
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR/lib})

@@ -17,7 +17,7 @@ int Stream::readFixSize(void* buffer, size_t length) {
     return length;
 }
 
-int Stream::readFixSize(Bytearray::ptr ba, size_t length) {
+int Stream::readFixSize(ByteArray::ptr ba, size_t length) {
     size_t left = length;
     while (left > 0) {
         size_t len = read(ba, length);
@@ -29,7 +29,7 @@ int Stream::readFixSize(Bytearray::ptr ba, size_t length) {
     return length;
 }
 
-int Stream::writeFixSize(void* buffer, size_t length) {
+int Stream::writeFixSize(const void* buffer, size_t length) {
     size_t offset = 0;
     size_t left = length;
 
@@ -44,7 +44,7 @@ int Stream::writeFixSize(void* buffer, size_t length) {
     return length;
 }
 
-int Stream::writeFixSize(Bytearray::ptr ba, size_t length) {
+int Stream::writeFixSize(ByteArray::ptr ba, size_t length) {
     size_t left = 0;
     while (left > 0) {
         size_t len = write(ba, length);
