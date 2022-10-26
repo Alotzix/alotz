@@ -4,13 +4,18 @@ project(alotz)
 include (cmake/utils.cmake)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
-set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O0 -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined")
+set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -rdynamic -O3 -ggdb -std=c++11 -Wall -Wno-deprecated -Werror -Wno-unused-function -Wno-builtin-macro-redefined")
 
 include_directories(.)
 include_directories(/usr/include)
 include_directories(/usr/local/include)
 link_directories(/usr/lib64)
 link_directories(/usr/local/lib64)
+
+find_package(Boost REQUIRED)
+if (BOOST_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+endif()
 
 set(LIB_SRC
     src/address.cc
@@ -39,6 +44,7 @@ set(LIB_SRC
 
 ragelmaker(src/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/http)
 ragelmaker(src/http/httpclient_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/http)
+ragelmaker(src/uri.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 add_library(alotz SHARED ${LIB_SRC})
 force_redefine_file_macro_for_sources(alotz) #__FILE__
@@ -73,6 +79,7 @@ alotz_add_executable(test_tcp_server "test/test_tcp_server.cc" alotz "${LIBS}")
 alotz_add_executable(echo_server "examples/echo_server.cc" alotz "${LIBS}")
 alotz_add_executable(test_http_server "test/test_http_server.cc" alotz "${LIBS}")
 alotz_add_executable(test_http_connection "test/test_http_connection.cc" alotz "${LIBS}")
+alotz_add_executable(test_uri "test/test_uri.cc" alotz "${LIBS}")
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR/bin})
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR/lib})

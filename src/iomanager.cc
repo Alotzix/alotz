@@ -134,7 +134,8 @@ int IOManager::addEvent(int fd, Event event, std::function<void()> cb) {
         event_ctx.cb.swap(cb);
     } else {
         event_ctx.fiber = Fiber::GetThis();
-        ALOTZ_ASSERT(event_ctx.fiber->getState() == Fiber::EXEC);
+        ALOTZ_ASSERT2(event_ctx.fiber->getState() == Fiber::EXEC
+            , "state=" << event_ctx.fiber->getState());
     }
     return 0;
 }
@@ -267,6 +268,7 @@ bool IOManager::stopping() {
 }
 
 void IOManager::idle() {
+    ALOTZ_LOG_DEBUG(g_logger) << "idle";
     epoll_event* events = new epoll_event[64]();
     std::shared_ptr<epoll_event> shared_events(events, [](epoll_event* ptr) { 
         delete[] ptr;

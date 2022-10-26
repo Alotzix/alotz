@@ -2,6 +2,9 @@
 #define __ALOTZ_SOCKET_H__
 
 #include <memory>
+#include <netinet/tcp.h>
+#include <sys/types.h>
+#include <sys/socket.h>
 #include "address.h"
 #include "noncopyable.h"
 
@@ -44,14 +47,14 @@ public:
     int64_t getRecvTimeout();
     void setRecvTimeout(int64_t v);
 
-    bool getOption(int level, int option, void* result, size_t* len);
+    bool getOption(int level, int option, void* result, socklen_t* len);
     template <typename T>
     bool getOption(int level, int option, T& result) {
-        size_t length = sizeof(T);
+        socklen_t length = sizeof(T);
         return getOption(level, option, &result, &length);
     }
 
-    bool setOption(int level, int option, const void* result, size_t len);
+    bool setOption(int level, int option, const void* result, socklen_t len);
     template <typename T>
     bool setOption(int level, int option, const T& value) {
         return setOption(level, option, &value, sizeof(T));

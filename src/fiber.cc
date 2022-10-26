@@ -157,13 +157,15 @@ Fiber::ptr Fiber::GetThis() {
 
 void Fiber::YieldToReady() {
     Fiber::ptr cur = GetThis();
+    ALOTZ_ASSERT(cur->m_state == EXEC);
     cur->m_state = READY;
     cur->swapOut();
 }
 
 void Fiber::YieldToHold() {
     Fiber::ptr cur = GetThis();
-    cur->m_state = HOLD;
+    ALOTZ_ASSERT(cur->m_state == EXEC);
+    // cur->m_state = HOLD;
     cur->swapOut();
 }
  

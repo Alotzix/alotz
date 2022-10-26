@@ -4,6 +4,7 @@
 #include "fiber.h"
 #include "iomanager.h"
 #include "fd_manager.h"
+#include "macro.h"
 
 alotz::Logger::ptr g_logger = ALOTZ_LOG_NAME("system");
 
@@ -123,7 +124,7 @@ retry:
         }
 
         int rt = iom->addEvent(fd, (alotz::IOManager::Event)(event));
-        if (rt) {
+        if (ALOTZ_UNLIKELY(rt)) {
             ALOTZ_LOG_ERROR(g_logger) << hook_fun_name << " addEvent("
                 << fd << ", " << event << ")";
             if (timer) {
@@ -140,6 +141,7 @@ retry:
                 return -1;
             }
 
+            // ALOTZ_ASSERT(alotz::Fiber::GetThis()->getState() == alotz::Fiber::EXEC);
             goto retry;
         }
     }
@@ -388,7 +390,9 @@ int fcntl(int fd, int cmd, ...) {
         case F_SETSIG:
         case F_SETLEASE:
         case F_NOTIFY:
+#ifdef F_SETPIPE_SZ
         case F_SETPIPE_SZ:
+#endif
             {
                 int arg = va_arg(va, int);
                 va_end(va);
@@ -399,7 +403,9 @@ int fcntl(int fd, int cmd, ...) {
         case F_GETOWN:
         case F_GETSIG:
         case F_GETLEASE:
+#ifdef F_GETPIPE_SZ
         case F_GETPIPE_SZ:
+#endif
             {
                 va_end(va);
                 return fcntl_f(fd, cmd);

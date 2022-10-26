@@ -28,7 +28,7 @@ Timer::Timer(uint64_t ms, std::function<void()> cb, bool recurring, TimerManager
     , m_ms(ms)
     , m_cb(cb)
     , m_manager(manager){
-    m_next = alotz::GetCurrentMs() + m_ms;
+    m_next = alotz::GetCurrentMS() + m_ms;
 }
 
 Timer::Timer(uint64_t next) 
@@ -56,7 +56,7 @@ bool Timer::refresh() {
         return false;
     }
     m_manager->m_timers.erase(it);
-    m_next = alotz::GetCurrentMs() + m_ms;
+    m_next = alotz::GetCurrentMS() + m_ms;
     m_manager->m_timers.insert(shared_from_this());
     return true;
 }
@@ -76,7 +76,7 @@ bool Timer::reset(uint64_t ms, bool from_now) {
     m_manager->m_timers.erase(it);
     uint64_t start = 0;
     if (from_now) {
-        start = alotz::GetCurrentMs();
+        start = alotz::GetCurrentMS();
     } else {
         start = m_next - m_ms;
     }
@@ -87,7 +87,7 @@ bool Timer::reset(uint64_t ms, bool from_now) {
 }
 
 TimerManager::TimerManager() {
-    m_previousTime = alotz::GetCurrentMs();
+    m_previousTime = alotz::GetCurrentMS();
 }
 
 TimerManager::~TimerManager() {
@@ -119,7 +119,7 @@ uint64_t TimerManager::getNextTimer() {
     }
 
     const Timer::ptr& next = *m_timers.begin();
-    uint64_t now_ms = alotz::GetCurrentMs();
+    uint64_t now_ms = alotz::GetCurrentMS();
     if (now_ms >= next->m_next) {
         return 0;
     } else {
@@ -128,7 +128,7 @@ uint64_t TimerManager::getNextTimer() {
 }
 
 void TimerManager::listExpiredCb(std::vector<std::function<void()>>& cbs) {
-    uint64_t now_ms = alotz::GetCurrentMs();
+    uint64_t now_ms = alotz::GetCurrentMS();
     std::vector<Timer::ptr> expired;
     {
         RWMutexType::ReadLock lock(m_mutex);
@@ -137,6 +137,10 @@ void TimerManager::listExpiredCb(std::vector<std::function<void()>>& cbs) {
         }
     }
     RWMutexType::WriteLock lock(m_mutex);
+
+    if (m_timers.empty()) {
+        return;
+    }
 
     bool rollover = detectClockRollOver(now_ms);
     if (!rollover && ((*m_timers.begin())->m_next > now_ms)) {

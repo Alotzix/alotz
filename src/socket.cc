@@ -1,6 +1,3 @@
-#include <netinet/tcp.h>
-#include <sys/types.h>
-#include <sys/socket.h>
 #include <limits.h>
 #include "socket.h"
 #include "iomanager.h"
@@ -91,8 +88,8 @@ void Socket::setRecvTimeout(int64_t v) {
     setOption(SOL_SOCKET, SO_RCVTIMEO, tv);
 }
 
-bool Socket::getOption(int level, int option, void* result, size_t* len) {
-    int rt = getsockopt(m_sock, level, option, result, (socklen_t*)len);
+bool Socket::getOption(int level, int option, void* result, socklen_t* len) {
+    int rt = getsockopt(m_sock, level, option, result, len);
     if (rt) {
         ALOTZ_LOG_DEBUG(g_logger) << "getOption sock=" << m_sock
             << " level=" << level << " option=" << option
@@ -102,8 +99,8 @@ bool Socket::getOption(int level, int option, void* result, size_t* len) {
     return true;
 }
 
-bool Socket::setOption(int level, int option, const void* result, size_t len) {
-    if(setsockopt(m_sock, level, option, result, (socklen_t)len)) {
+bool Socket::setOption(int level, int option, const void* result, socklen_t len) {
+    if(setsockopt(m_sock, level, option, result, len)) {
         ALOTZ_LOG_DEBUG(g_logger) << "setOption sock=" << m_sock
             << " level=" << level << " option=" << option
             << " errno=" << errno << " errstr=" << strerror(errno);
@@ -371,9 +368,9 @@ bool Socket::isValid() const {
 
 int Socket::getError() {
     int error = 0;
-    size_t len = sizeof(error);
+    socklen_t len = sizeof(error);
     if (!getOption(SOL_SOCKET, SO_ERROR, &error, &len)) {
-        return -1;
+        error = errno;
     }
     return error;
 }

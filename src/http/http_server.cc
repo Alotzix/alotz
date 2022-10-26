@@ -15,13 +15,14 @@ HttpServer::HttpServer(bool keepalive
     }
 
 void HttpServer::handleClient(Socket::ptr client) {
+    ALOTZ_LOG_DEBUG(g_logger) << "handleClient" << *client;
     HttpSession::ptr session(new HttpSession(client));
     do {
         auto req = session->recvRequest();
         if (!req) {
-            ALOTZ_LOG_WARN(g_logger) << "recv http request fail. errno="
+            ALOTZ_LOG_DEBUG(g_logger) << "recv http request fail. errno="
                 << errno << " errstr=" << strerror(errno)
-                << " client:" << *client;
+                << " client:" << *client << " keep_alive=" << m_isKeepalive;
             break;
         }
 
@@ -31,7 +32,11 @@ void HttpServer::handleClient(Socket::ptr client) {
         m_dispatch->handle(req, rsp, session);
 
         session->sendResponse(rsp);
-    } while (m_isKeepalive);
+
+        if (!m_isKeepalive || req->isClose()) {
+            break;
+        }
+    } while (true);
     session->close();
 }
 }
