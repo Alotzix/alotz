@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_LOG_H__
-#define __ALOTZ_LOG_H__
+#ifndef ALOTZ_LOG_H
+#define ALOTZ_LOG_H
 
 #include <string>
 #include <stdint.h>

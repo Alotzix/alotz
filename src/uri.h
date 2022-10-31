@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_URI_H__
-#define __ALOTZ_MACRO_H__
+#ifndef ALOTZ_URI_H
+#define ALOTZ_MACRO_H
 
 #include <memory>
 #include <string>

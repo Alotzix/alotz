@@ -17,7 +17,7 @@
     if (!(x)) { \
         ALOTZ_LOG_ERROR(ALOTZ_LOG_ROOT()) << "ASSERTION: " #x \
             << "\nbacktrace: \n" \
-            << alotz::BacktraceToString(100, 2, "    "); \
+            << alotz::BacktraceToString(100, 2, "     "); \
         assert(x); \
     }
 

@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_HTTP_HTTP_CONNECTION_H__
-#define __ALOTZ_HTTP_HTTP_CONNECTION_H__
+#ifndef ALOTZ_HTTP_HTTP_CONNECTION_H
+#define ALOTZ_HTTP_HTTP_CONNECTION_H
 
 #include "src/socket_stream.h"
 #include "http.h"

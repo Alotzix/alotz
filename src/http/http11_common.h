@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_HTTP11_COMMON_H
-#define __ALOTZ_HTTP11_COMMON_H
+#ifndef ALOTZ_HTTP11_COMMON_H
+#define ALOTZ_HTTP11_COMMON_H
 
 #include <sys/types.h>
 

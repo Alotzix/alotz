@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_H__
-#define __ALOTZ_H__
+#ifndef ALOTZ_H
+#define ALOTZ_H
 
 #include "macro.h"
 #include "log.h"

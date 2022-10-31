@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_HTTP_SERVLET_H__
-#define __ALOTZ_HTTP_SERVLET_H__
+#ifndef ALOTZ_HTTP_SERVLET_H
+#define ALOTZ_HTTP_SERVLET_H
 
 #include <memory>
 #include <functional>

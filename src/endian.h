@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_ENDIAN_H__
-#define __ALOTZ_ENDIAN_H__
+#ifndef ALOTZ_ENDIAN_H
+#define ALOTZ_ENDIAN_H
 
 #define ALOTZ_LITTLE_ENDIAN 1
 #define ALOTZ_BIG_ENDIAN 2

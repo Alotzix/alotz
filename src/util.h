@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_UTIL_H__
-#define __ALOTZ_UTIL_H__
+#ifndef ALOTZ_UTIL_H
+#define ALOTZ_UTIL_H
 
 #include <pthread.h>
 #include <unistd.h>

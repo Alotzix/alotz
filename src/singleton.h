@@ -1,11 +1,11 @@
-#ifndef __ALOTZ_SINGLETON_H__
-#define __ALOTZ_SINGLETON_H__
+#ifndef ALOTZ_SINGLETON_H
+#define ALOTZ_SINGLETON_H
 
 #include <memory>
 
 namespace alotz {
 
-template<typename T>
+template <typename T>
 class Singleton {
 public:
     static T* GetInstance() {
@@ -14,7 +14,7 @@ public:
     }
 };
 
-template<typename T>
+template <typename T>
 class SingletonPtr {
 public:
     static std::shared_ptr<T> GetInstance() {

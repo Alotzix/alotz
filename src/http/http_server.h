@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_HTTP_HTTP_SERVER_H__
-#define __ALOTZ_HTTP_HTTP_SERVER_H__
+#ifndef ALOTZ_HTTP_HTTP_SERVER_H
+#define ALOTZ_HTTP_HTTP_SERVER_H
 
 #include "src/tcp_server.h"
 #include "http_session.h"

@@ -1,9 +1,9 @@
-#include "bytearray.h"
 #include <fstream>
 #include <sstream>
 #include <string.h>
 #include <iomanip>
 
+#include "bytearray.h"
 #include "endian.h"
 #include "log.h"
 
@@ -531,7 +531,7 @@ std::string ByteArray::toString() const {
 }
 
 std::string ByteArray::toHexString() const {
-    std::string str;
+    std::string str = toString();
     std::stringstream ss;
 
     for (size_t i = 0; i < str.size(); ++i) {

@@ -2,6 +2,7 @@
 #include <netdb.h>
 #include <ifaddrs.h>
 #include <stddef.h>
+
 #include "address.h"
 #include "endian.h"
 #include "log.h"

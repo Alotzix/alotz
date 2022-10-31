@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_CONFIG_H__
-#define __ALOTZ_CONFIG_H__
+#ifndef ALOTZ_CONFIG_H
+#define ALOTZ_CONFIG_H
 
 #include <memory>
 #include <string>
@@ -231,8 +231,6 @@ public:
         return ss.str();
     }
 };
-
-// 
 
 template <typename T, typename FromStr = LexicalCast<std::string, T>, typename ToStr = LexicalCast<T, std::string>>
 class ConfigVar : public ConfigVarBase {

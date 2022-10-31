@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_HTTP_H__
-#define __ALOTZ_HTTP_H__
+#ifndef ALOTZ_HTTP_H
+#define ALOTZ_HTTP_H
 
 #include <memory>
 #include <string>

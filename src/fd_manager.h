@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_FDMANAGER_H__
-#define __ALOTZ_FDMANAGER_H__
+#ifndef ALOTZ_FDMANAGER_H
+#define ALOTZ_FDMANAGER_H
 
 #include <memory>
 #include <vector>

@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_BYTEArRAY_H__
-#define __ALOTZ_BYTEArRAY_H__
+#ifndef ALOTZ_BYTEArRAY_H
+#define ALOTZ_BYTEArRAY_H
 
 #include <memory>
 #include <string>
@@ -43,18 +43,12 @@ public:
 
     void writeFloat  (float value);
     void writeDouble (double value);
-    //length:int16 , data
     void writeStringF16(const std::string& value);
-    //length:int32 , data
     void writeStringF32(const std::string& value);
-    //length:int64 , data
     void writeStringF64(const std::string& value);
-    //length:varint, data
     void writeStringVint(const std::string& value);
-    //data
     void writeStringWithoutLength(const std::string& value);
 
-    //read
     int8_t   readFint8();
     uint8_t  readFuint8();
     int16_t  readFint16();
@@ -72,13 +66,10 @@ public:
     float    readFloat();
     double   readDouble();
 
-    //length:int16, data
     std::string readStringF16();
-    //length:int32, data
     std::string readStringF32();
-    //length:int64, data
     std::string readStringF64();
-    //length:varint , data
+
     std::string readStringVint();
 
     void clear();

@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_FIBER_H__
-#define __ALOTZ_FIBER_H__
+#ifndef ALOTZ_FIBER_H
+#define ALOTZ_FIBER_H
 
 #include <memory>
 #include <functional>

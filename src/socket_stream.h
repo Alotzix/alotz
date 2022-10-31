@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_SOCKET_STREAM_H__
-#define __ALOTZ_SOCKET_STREAM_H__
+#ifndef ALOTZ_SOCKET_STREAM_H
+#define ALOTZ_SOCKET_STREAM_H
 
 #include "stream.h"
 #include "socket.h"

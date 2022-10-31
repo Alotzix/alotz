@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_HOOK_H__
-#define __ALOTZ_HOOK_H__
+#ifndef ALOTZ_HOOK_H
+#define ALOTZ_HOOK_H
 
 #include <fcntl.h>
 #include <sys/ioctl.h>

@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_HTTP_PARSER_H__
-#define __ALOTZ_HTTP_PARSER_H__
+#ifndef ALOTZ_HTTP_PARSER_H
+#define ALOTZ_HTTP_PARSER_H
 
 #include "http.h"
 #include "http11_parser.h"

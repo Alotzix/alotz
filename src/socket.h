@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_SOCKET_H__
-#define __ALOTZ_SOCKET_H__
+#ifndef ALOTZ_SOCKET_H
+#define ALOTZ_SOCKET_H
 
 #include <memory>
 #include <netinet/tcp.h>

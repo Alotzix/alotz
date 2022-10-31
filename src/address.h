@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_ADDRESS_H__
-#define __ALOTZ_ADDRESS_H__
+#ifndef ALOTZ_ADDRESS_H
+#define ALOTZ_ADDRESS_H
 
 #include <memory>
 #include <string>

@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_SCHEDULER_H__
-#define __ALOTZ_SCHEDULER_H__
+#ifndef ALOTZ_SCHEDULER_H
+#define ALOTZ_SCHEDULER_H
 
 #include <memory>
 #include <vector>

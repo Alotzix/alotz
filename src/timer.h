@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_TIMER_H__
-#define __ALOTZ_TIMER_H__
+#ifndef ALOTZ_TIMER_H
+#define ALOTZ_TIMER_H
 
 #include <memory>
 #include <vector>

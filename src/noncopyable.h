@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_NONCOPYABLE_H__
-#define __ALOTZ_NONCOPYABLE_H__
+#ifndef ALOTZ_NONCOPYABLE_H
+#define ALOTZ_NONCOPYABLE_H
 
 namespace alotz {
 

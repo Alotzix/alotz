@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_STREAM_H__
-#define __ALOTZ_STREAM_H__
+#ifndef ALOTZ_STREAM_H
+#define ALOTZ_STREAM_H
 
 #include <memory>
 #include "bytearray.h"

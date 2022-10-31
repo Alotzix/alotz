@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_TCP_SERVER_H__
-#define __ALOTZ_TCP_SERVER_H__
+#ifndef ALOTZ_TCP_SERVER_H
+#define ALOTZ_TCP_SERVER_H
 
 #include <functional>
 #include <memory>

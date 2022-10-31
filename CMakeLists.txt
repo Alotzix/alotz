@@ -32,6 +32,7 @@ set(LIB_SRC
     src/hook.cc
     src/iomanager.cc
     src/log.cc
+    src/mutex.cc
     src/scheduler.cc
     src/socket.cc
     src/socket_stream.cc
@@ -39,7 +40,7 @@ set(LIB_SRC
     src/tcp_server.cc
     src/timer.cc
     src/thread.cc
-    src/util.cc
+    src/util.cc    
 )
 
 ragelmaker(src/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/http)

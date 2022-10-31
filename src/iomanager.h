@@ -1,5 +1,5 @@
-#ifndef __ALOTZ_IOMANAGER_H__
-#define __ALOTZ_IOMANAGER_H__
+#ifndef ALOTZ_IOMANAGER_H
+#define ALOTZ_IOMANAGER_H
 
 #include "scheduler.h"
 #include "timer.h"
