@@ -10,6 +10,7 @@ include_directories(.)
 include_directories(/usr/include)
 include_directories(/usr/local/include)
 link_directories(/usr/lib64)
+link_directories(/usr/lib64/mysql)
 link_directories(/usr/local/lib64)
 
 find_package(Boost REQUIRED)
@@ -40,7 +41,8 @@ set(LIB_SRC
     src/tcp_server.cc
     src/timer.cc
     src/thread.cc
-    src/util.cc    
+    src/util.cc
+    src/db/mysql/mysql.cc
 )
 
 ragelmaker(src/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/http)
@@ -62,6 +64,7 @@ set(LIBS
     dl
     yaml-cpp
     pthread
+    mysqlclient
 )
 
 alotz_add_executable(test_config "test/test_config.cc" alotz "${LIBS}")
@@ -81,6 +84,7 @@ alotz_add_executable(echo_server "examples/echo_server.cc" alotz "${LIBS}")
 alotz_add_executable(test_http_server "test/test_http_server.cc" alotz "${LIBS}")
 alotz_add_executable(test_http_connection "test/test_http_connection.cc" alotz "${LIBS}")
 alotz_add_executable(test_uri "test/test_uri.cc" alotz "${LIBS}")
+alotz_add_executable(test_mysql "test/test_mysql.cc" alotz "${LIBS}")
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR/bin})
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR/lib})
