@@ -242,8 +242,8 @@ public:
     ConfigVar(const std::string& name
             ,const T& default_value
             ,const std::string& description = "")
-        :ConfigVarBase(name, description)
-        ,m_val(default_value) {
+        : ConfigVarBase(name, description)
+        , m_val(default_value) {
     }
 
     std::string toString() override {
@@ -344,7 +344,7 @@ public:
             }
         }
 
-        if(name.find_first_not_of("abcdefghikjlmnopqrstuvwxyz._012345678")
+        if (name.find_first_not_of("abcdefghikjlmnopqrstuvwxyz._0123456789")
                 != std::string::npos) {
             ALOTZ_LOG_ERROR(ALOTZ_LOG_ROOT()) << "Lookup name invalid " << name;
             throw std::invalid_argument(name);

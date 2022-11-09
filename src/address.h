@@ -81,17 +81,12 @@ public:
     const sockaddr* getAddr() const override;
     sockaddr* getAddr() override;
     socklen_t getAddrLen() const override;
-
     std::ostream& insert(std::ostream& os) const override;
 
     IPAddress::ptr broadcastAddress(uint32_t prefix_len) override;
-
     IPAddress::ptr networkAddress(uint32_t prefix_len) override;
-
     IPAddress::ptr subnetMask(uint32_t prefix_len) override;
-
     uint32_t getPort() const override;
-
     void setPort(uint16_t v) override;
 
 private:

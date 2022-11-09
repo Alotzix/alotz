@@ -8,7 +8,7 @@
 
 namespace alotz {
 
-static alotz::Logger::ptr g_logger = ALOTZ_LOG_NAME("system");
+static alotz::Logger::ptr g_logger = ALOTZ_LOG_ROOT();
 
 Socket::ptr Socket::CreateTCP(alotz::Address::ptr address) {
     Socket::ptr sock(new Socket(address->getFamily(), TCP, 0));

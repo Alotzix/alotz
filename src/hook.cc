@@ -6,7 +6,7 @@
 #include "fd_manager.h"
 #include "macro.h"
 
-alotz::Logger::ptr g_logger = ALOTZ_LOG_NAME("system");
+alotz::Logger::ptr g_logger = ALOTZ_LOG_ROOT();
 
 namespace alotz {
 

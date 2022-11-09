@@ -124,6 +124,7 @@ void Fiber::back() {
     }
 }
 
+// 切换到当前fiber
 void Fiber::swapIn() {
     SetThis(this);
     ALOTZ_ASSERT(m_state != EXEC);
@@ -133,6 +134,7 @@ void Fiber::swapIn() {
     }
 }
 
+// 切换回mainFiber
 void Fiber::swapOut() {
     SetThis(Scheduler::GetMainFiber());
 
@@ -173,6 +175,7 @@ uint64_t Fiber::TotalFibers() {
     return s_fiber_count;
 }
 
+// 执行当前fiber,执行结束切回Scheduler::mainFiber
 void Fiber::MainFunc() {
     Fiber::ptr cur = GetThis();
     ALOTZ_ASSERT(cur);
@@ -208,7 +211,7 @@ void Fiber::CallerMainFunc() {
             << "fiber_id= " << cur->getId()
             << std::endl
             << alotz::BacktraceToString();
-    } catch(...) {
+    } catch (...) {
         cur->m_state = EXCEPT;
         ALOTZ_LOG_ERROR(g_logger) << "Fiber Except: "
             << "fiber_id= " << cur->getId()

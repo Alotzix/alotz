@@ -1,4 +1,4 @@
-#include "src/db/mysql/mysql.h"
+#include "src/db/mysql.h"
 #include "src/alotz.h"
 
 static alotz::Logger::ptr g_logger = ALOTZ_LOG_ROOT();

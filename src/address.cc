@@ -9,7 +9,7 @@
 
 namespace alotz {
 
-static alotz::Logger::ptr g_logger = ALOTZ_LOG_NAME("system");
+static alotz::Logger::ptr g_logger = ALOTZ_LOG_ROOT();
 
 template <typename T>
 static T CreateMask(uint32_t bits) {
@@ -38,9 +38,6 @@ IPAddress::ptr Address::LookupAnyIPAddress(const std::string& host,
     int family, int type, int protocol) {
     std::vector<Address::ptr> result;
     if (Lookup(result, host, family, type, protocol)) {
-        // for (auto& i : result) {
-        //     std::cout << i->toString() << std::endl;
-        // }
         for (auto& i : result) {
             IPAddress::ptr v = std::dynamic_pointer_cast<IPAddress>(i);
             if (v) {
@@ -238,7 +235,7 @@ IPAddress::ptr IPAddress::Create(const char* address, uint16_t port) {
     addrinfo hints, *results;
     memset(&hints, 0, sizeof(addrinfo));
 
-    hints.ai_flags = AI_NUMERICHOST;
+    hints.ai_flags = AI_NUMERICHOST; // forbid DNS
     hints.ai_family = AF_UNSPEC;
 
     int error = getaddrinfo(address, NULL, &hints, &results);

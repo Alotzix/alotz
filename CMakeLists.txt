@@ -42,7 +42,7 @@ set(LIB_SRC
     src/timer.cc
     src/thread.cc
     src/util.cc
-    src/db/mysql/mysql.cc
+    src/db/mysql.cc
 )
 
 ragelmaker(src/http/http11_parser.rl LIB_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/http)
