@@ -77,7 +77,7 @@ Fiber::Fiber(std::function<void()> cb, size_t stacksize, bool use_caller)
 Fiber::~Fiber() {
     --s_fiber_count;
     if (m_stack) {
-        ALOTZ_ASSERT(m_state == TERM || m_state == INIT || m_state == EXCEPT);
+        ALOTZ_ASSERT(m_state == TERM || m_state == INIT || m_state == EXCEPT || m_state == HOLD);
 
         StackAllocator::Dealloc(m_stack, m_stacksize);
     } else {

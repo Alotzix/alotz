@@ -5,7 +5,7 @@
 
 namespace alotz {
 
-static alotz::Logger::ptr g_logger = ALOTZ_LOG_ROOT();
+static alotz::Logger::ptr g_logger = ALOTZ_LOG_NAME("system");
 
 static thread_local Scheduler* t_scheduler = nullptr;
 static thread_local Fiber* t_scheduler_fiber = nullptr;

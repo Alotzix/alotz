@@ -1,18 +1,31 @@
+#include <iostream>
 #include "src/db/mysql.h"
-#include "src/alotz.h"
+#include "src/iomanager.h"
 
-static alotz::Logger::ptr g_logger = ALOTZ_LOG_ROOT();
+void run() {
+    do {
+        std::map<std::string, std::string> params;
+        params["host"] = "43.143.146.32";
+        params["user"] = "root";
+        params["password"] = "1979Algopat#";
+        params["database"] = "server_dev_1";
+
+        alotz::MySQL::ptr mysql(new alotz::MySQL(params));
+        if (!mysql->connect()) {
+            std::cout << "connect fail" << std::endl;
+            return;
+        }
+        
+        alotz::MySQLStmt::ptr stmt = alotz::MySQLStmt::Create(mysql, "update test set count = ? where id = 1");
+        stmt->bind(1, 100);
+        int rt = stmt->execute();
+        std::cout << "rt=" << rt << std::endl;
+    } while (false);
+    std::cout << "over" << std::endl;
+}
 
 int main(int argc, char** argv) {
-
-    const std::string host = "43.143.146.32";
-    const std::string user = "root";
-    const std::string password = "1979Algopat#";
-    const std::string database = "server_dev_1";
-    alotz::MysqlDB::ptr dbtool(new alotz::MysqlDB);
-    dbtool->connect(host, user, password, database);
-    const std::string sql = "select * from test";
-    dbtool->execute(sql);
-    
+    alotz::IOManager iom(1);
+    iom.addTimer(1000, run, true);
     return 0;
 }

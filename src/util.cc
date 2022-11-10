@@ -57,4 +57,107 @@ uint64_t GetCurrentUS() {
     return tv.tv_sec * 1000 * 1000ul + tv.tv_usec;
 }
 
+std::string Time2Str(time_t ts, const std::string& format) {
+    struct tm tm;
+    localtime_r(&ts, &tm);
+    char buf[64];
+    strftime(buf, sizeof(buf), format.c_str(), &tm);
+    return buf;
+}
+
+time_t Str2Time(const char* str, const char* format) {
+    struct tm t;
+    memset(&t, 0, sizeof(t));
+    if (!strptime(str, format, &t)) {
+        return 0;
+    }
+    return mktime(&t);
+}
+
+int8_t TypeUtil::ToChar(const std::string& str) {
+    if (str.empty()) {
+        return 0;
+    }
+    return *str.begin();
+}
+
+int64_t TypeUtil::Atoi(const std::string& str) {
+    if (str.empty()) {
+        return 0;
+    }
+    return strtoull(str.c_str(), nullptr, 10);
+}
+
+double  TypeUtil::Atof(const std::string& str) {
+    if(str.empty()) {
+        return 0;
+    }
+    return atof(str.c_str());
+}
+
+int8_t  TypeUtil::ToChar(const char* str) {
+    if(str == nullptr) {
+        return 0;
+    }
+    return str[0];
+}
+
+int64_t TypeUtil::Atoi(const char* str) {
+    if(str == nullptr) {
+        return 0;
+    }
+    return strtoull(str, nullptr, 10);
+}
+
+double  TypeUtil::Atof(const char* str) {
+    if(str == nullptr) {
+        return 0;
+    }
+    return atof(str);
+}
+
+std::string StringUtil::Format(const char* fmt, ...) {
+    va_list ap;
+    va_start(ap, fmt);
+    auto v = Formatv(fmt, ap);
+    va_end(ap);
+    return v;
+}
+
+std::string StringUtil::Formatv(const char* fmt, va_list ap) {
+    char* buf = nullptr;
+    auto len = vasprintf(&buf, fmt, ap);
+    if(len == -1) {
+        return "";
+    }
+    std::string ret(buf, len);
+    free(buf);
+    return ret;
+}
+
+std::string StringUtil::Trim(const std::string& str, const std::string& delimit) {
+    auto begin = str.find_first_not_of(delimit);
+    if (begin == std::string::npos) {
+        return "";
+    }
+    auto end = str.find_last_not_of(delimit);
+    return str.substr(begin, end - begin + 1);
+}
+
+std::string StringUtil::TrimLeft(const std::string& str, const std::string& delimit) {
+    auto begin = str.find_first_not_of(delimit);
+    if (begin == std::string::npos) {
+        return "";
+    }
+    return str.substr(begin);
+}
+
+std::string StringUtil::TrimRight(const std::string& str, const std::string& delimit) {
+    auto end = str.find_last_not_of(delimit);
+    if (end == std::string::npos) {
+        return "";
+    }
+    return str.substr(0, end);
+}
+
 }
